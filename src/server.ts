@@ -1,4 +1,5 @@
 import express, { Request, Response, NextFunction } from "express";
+import { ZodError } from "zod";
 
 import { routes } from "./routes";
 import { AppError } from "./AppError";
@@ -16,6 +17,12 @@ app.use((err: any, req: Request, res: Response, _: NextFunction) => {
     return res.status(err.statusCode).json({
       message: err.message,
     });
+
+    if (err instanceof ZodError) {
+      return res
+      .status(400)
+      .json({ message: "Validation error", issues: err.issues });
+    }
   }
   res.status(500).json({ message: "Internal server error" });
 });

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { AppError } from "../AppError.js";
+import { z } from "zod";
 
 export class ProductsController {
   index(req: Request, res: Response) {
@@ -8,7 +9,12 @@ export class ProductsController {
   }
 
   create(req: Request, res: Response) {
-    const { name, price } = req.body;
+    const bodySchema = z.object({
+      name: z.string().nullish(),
+      price: z.number().nullish(),
+    });
+
+    const { name, price } = bodySchema.parse(req.body);
 
     if (!name || !price) {
       throw new AppError("Erro ao criar produto", 400);
