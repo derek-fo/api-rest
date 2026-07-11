@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { AppError } from "../AppError.js";
+import { AppError } from "../utils/AppError";
 import { z } from "zod";
 
 export class ProductsController {

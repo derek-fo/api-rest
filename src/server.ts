@@ -2,7 +2,7 @@ import express, { Request, Response, NextFunction } from "express";
 import { ZodError } from "zod";
 
 import { routes } from "./routes";
-import { AppError } from "./AppError";
+import { AppError } from "./utils/AppError";
 
 const PORT = 3333;
 
